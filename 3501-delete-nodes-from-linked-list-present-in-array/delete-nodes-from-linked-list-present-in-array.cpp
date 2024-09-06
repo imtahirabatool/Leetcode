@@ -11,20 +11,20 @@
 class Solution {
 public:
     ListNode* modifiedList(vector<int>& nums, ListNode* head) {
-        bitset<100001> hasN = 0;
-        for (int x : nums)
-            hasN[x] = 1;
-        ListNode dummy(0, head);
-        ListNode *prev = &dummy, *tmp = NULL;
-        for (ListNode* curr = head; curr; curr = curr->next, delete tmp) {
-            if (hasN[curr->val]) {
-                prev->next = curr->next;
-                tmp = curr;
-            } else {
-                prev = prev->next;
-                tmp = NULL;
+        set<int> st;
+        for (auto num : nums)
+            st.insert(num);
+
+        ListNode* ans = new ListNode(0);
+        ListNode* tail = ans;
+        while (head) {
+            int val = head->val;
+            head = head->next;
+            if (not st.count(val)) {
+                tail->next = new ListNode(val);
+                tail = tail->next;
             }
         }
-        return dummy.next;
+        return ans->next;
     }
 };
