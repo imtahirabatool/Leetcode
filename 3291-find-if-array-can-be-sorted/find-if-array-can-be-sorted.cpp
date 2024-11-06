@@ -1,4 +1,4 @@
-class Solution {
+ class Solution {
 public:
     bool canSortArray(vector<int>& nums) {
         vector<int> setBits;
