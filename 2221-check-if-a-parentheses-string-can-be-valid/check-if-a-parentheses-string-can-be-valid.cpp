@@ -15,6 +15,7 @@ public:
 
         open = 0, close = 0;
 
+        // Backward pass
         for (int i = s.length() - 1; i >= 0; --i) {
             if (locked[i] == '0' || s[i] == ')') close++;
             else open++;
