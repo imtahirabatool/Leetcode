@@ -1,13 +1,17 @@
 class Solution {
 public:
     bool containsNearbyDuplicate(vector<int>& nums, int k) {
-        unordered_map<int, int> map;
+        unordered_set<int>set;
 
-        for (int i = 0; i < nums.size(); i++) {
-            if (map.find(nums[i]) != map.end() && i - map[nums[i]] <= k) {
-                return true;
+        for(int i=0; i<nums.size(); ++i){
+            if(set.count(nums[i]))
+            return true;
+
+            set.insert(nums[i]);
+
+            if(i>=k){
+                set.erase(nums[i-k]);
             }
-            map[nums[i]] = i;
         }
         return false;
     }
