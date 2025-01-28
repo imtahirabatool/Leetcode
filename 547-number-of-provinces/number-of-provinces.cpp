@@ -17,10 +17,11 @@ public:
         vector<int> vis(n + 1, 0);
 
         for (int i = 1; i <= n; i++) {
-            if (!vis[i]) {
+            if (!vis[i]) {//this means it's the start of a new city
                 q.push(i);
                 count++;
             }
+            // BFS Traversal
             while (!q.empty()) {
                 int curr = q.front();
                 q.pop();
