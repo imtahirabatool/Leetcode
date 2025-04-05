@@ -1,6 +1,8 @@
 class Solution {
 public:
-    int subsetXORSum(vector<int>& nums) { return dfs(nums, 0, 0); }
+    int subsetXORSum(vector<int>& nums) { 
+        return dfs(nums, 0, 0); 
+    }
 
 private:
     int dfs(const vector<int>& nums, int i, int xors) {
