@@ -1,22 +1,19 @@
 class Solution {
 public:
-    int minSwaps(string brackets) {
-        int swapCount = 0;
-        int imbalance = 0;
-
-        for (char bracket : brackets) {
-            if (bracket == ']') {
-                if (imbalance == 0) {
-                    swapCount++;
-                    imbalance++;
-                } else {
-                    imbalance--;
-                }
+    int minSwaps(string s) {
+        stack<char> st;
+        for (auto& c : s) {
+            if (c == '[') {
+                st.push(c);
             } else {
-                imbalance++;
+                if (!st.empty() && st.top() == '[') {
+                    st.pop();
+                } else {
+                    st.push(c);
+                }
             }
         }
-
-        return swapCount;
+        int unmatched = st.size();
+        return (unmatched / 2 + 1) / 2;
     }
 };
