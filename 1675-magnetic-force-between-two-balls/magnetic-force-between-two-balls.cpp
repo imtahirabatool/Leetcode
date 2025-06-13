@@ -1,34 +1,32 @@
 class Solution {
 public:
-    int maxDistance(vector<int>& position, int m) {
-        sort(position.begin(), position.end());
-        int l = 1, h = (position.back() - position[0]) / (m - 1), ans = 1;
-
-        while (l <= h) {
-            int mid = l + (h - l) / 2;
-            if (canWePlace(position, mid, m)) {
-                ans = mid;
-                l = mid + 1;
-            } else {
-                h = mid - 1;
+    bool canPlaceBalls(int gap, vector<int>& positions, int m) {
+        int lastPosition = positions[0];
+        int ballsRemaining = m - 1;
+        for (int i = 1; i < positions.size() && ballsRemaining > 0; i++) {
+            if (positions[i] - lastPosition >= gap) {
+                ballsRemaining--;
+                lastPosition = positions[i];
             }
         }
-        return ans;
+        return ballsRemaining == 0;
     }
+    int maxDistance(vector<int>& positions, int m) {
+        ios_base::sync_with_stdio(0);
+        sort(positions.begin(), positions.end());
+        int n = positions.size();
+        int left = 1;
+        int right = positions[n - 1] - positions[0];
+        int maxMinDistance = -1;
 
-private:
-    bool canWePlace(const vector<int>& arr, int dist, int balls) {
-        int countBalls = 1;
-        int lastPlaced = arr[0];
-        for (int i = 1; i < arr.size(); i++) {
-            if (arr[i] - lastPlaced >= dist) {
-                countBalls++;
-                lastPlaced = arr[i];
-            }
-            if (countBalls >= balls) {
-                return true;
-            }
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (canPlaceBalls(mid, positions, m)) {
+                maxMinDistance = mid;
+                left = mid + 1;
+            } else
+                right = mid - 1;
         }
-        return false;
+        return maxMinDistance;
     }
 };
