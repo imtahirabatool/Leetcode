@@ -1,29 +1,17 @@
 class Solution {
 public:
     bool checkInclusion(string s1, string s2) {
-        unordered_map<char, int> map;
-        for (auto& x : s1)
-            map[x]++;
+        int len1 = s1.length(), len2 = s2.length();
+        if (len1 > len2)
+            return false;
 
-        int right = 0, left = 0, n = s2.length(), required = s1.length();
+        sort(s1.begin(), s1.end());
 
-        while (right < n) {
-            if (map[s2[right]] > 0) {
-                required--;
-            }
-            map[s2[right]]--;
-            right++;
-
-            if (required == 0)
+        for (int i = 0; i <= len2 - len1; ++i) {
+            string window = s2.substr(i, len1);
+            sort(window.begin(), window.end());
+            if (window == s1)
                 return true;
-
-            if (right - left == s1.length()) {
-                if (map[s2[left]] >= 0) {
-                    required++;
-                }
-                map[s2[left]]++;
-                left++;
-            }
         }
 
         return false;
