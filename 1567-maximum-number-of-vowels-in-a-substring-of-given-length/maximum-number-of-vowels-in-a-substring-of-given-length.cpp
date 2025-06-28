@@ -1,22 +1,25 @@
 class Solution {
 public:
     int maxVowels(string s, int k) {
-        int currCount = 0, ans = 0;
-        bool vowels[26] = {false};
-        
-        vowels[0] = vowels[4] = vowels[8] = vowels[14] = vowels[20] = true;
-        
-        for (int i=0; i < s.length(); i++) {
-            if (i >= k and vowels[s[i-k]-'a']) {
-                currCount -= 1;
-            }
-            
-            if (vowels[s[i]-'a']) {
-                currCount += 1;
-            }
-            
-            ans = max (ans, currCount);
+        int maxCount = 0, count = 0;
+
+        for (int i = 0; i < k; i++) { //count vowels in 1st window
+            if (isVowel(s[i])) count++;
         }
-        return ans;
+        maxCount = count;
+
+        // Slide the window
+        for (int i = k; i < s.length(); i++) {
+            if (isVowel(s[i - k])) count--; //then remove leftmost
+            if (isVowel(s[i])) count++; // and add rightmost
+
+            maxCount = max(count, maxCount);
+        }
+        return maxCount;
+    }
+
+private:
+    bool isVowel(char c) {
+        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
     }
 };
