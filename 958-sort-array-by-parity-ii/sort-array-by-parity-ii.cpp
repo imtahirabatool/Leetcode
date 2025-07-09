@@ -5,15 +5,14 @@ public:
         int evenIdx = 0, oddIdx = 1;
 
         for (int num : nums) {
-            if (num % 2 == 0) {
-                res[evenIdx] = num;
-                evenIdx += 2;
+            if (num % 2 == 0) {     // if even
+                res[evenIdx] = num; // 0
+                evenIdx += 2;       // 2
             } else {
-                res[oddIdx] = num;
-                oddIdx += 2;
+                res[oddIdx] = num; // 1
+                oddIdx += 2;       // 3
             }
         }
-
         return res;
     }
 };
