@@ -4,12 +4,11 @@ public:
         unordered_map<char, int> charMap;
         int startIndex = -1, maxLen = 0;
 
-        for (int i = 0; i < s.length(); ++i) {
+        for (int i = 0; i < s.length(); i++) {
             if (charMap.find(s[i]) != charMap.end()) {
                 startIndex = max(startIndex, charMap[s[i]]);
             }
             charMap[s[i]] = i;
-
             maxLen = max(maxLen, i - startIndex);
         }
         return maxLen;
